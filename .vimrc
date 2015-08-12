@@ -177,6 +177,16 @@ Plugin 'digitaltoad/vim-jade'
 " end plugin definition
 call vundle#end()            " required for vundle
 
+" Personaliza a lightline
+let g:lightline = {
+ \ 'colorscheme': 'wombat',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+
 " start NERDTree on start-up and focus active window
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
@@ -194,7 +204,3 @@ autocmd BufWritePost *.js silent :JSHint
 
 " set the color theme to wombat256
 colorscheme monokai
-" make a mark for column 80
-set colorcolumn=80
-" and set the mark color to DarkSlateGray
-highlight ColorColumn ctermbg=lightgray guibg=lightgray
