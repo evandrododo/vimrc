@@ -95,7 +95,7 @@ set noswapfile
 set incsearch        " find the next match as we type the search
 set hlsearch         " hilight searches by default
 " use ESC to remove search higlight
-nnoremap <esc> :noh<return><esc>
+"nnoremap <esc> :noh<return><esc>
 
 " most of the time I should use ` instead of ' but typing it with my keyabord
 " is a pain, so just toggle them
@@ -149,7 +149,7 @@ if has('win32')
 endif
 
 " select all mapping
-noremap <leader>a ggVG
+"noremap <leader>a ggVG
 
 " ---------------------- PLUGIN CONFIGURATION ----------------------
 " initiate Vundle
@@ -189,7 +189,8 @@ let g:lightline = {
 
 " start NERDTree on start-up and focus active window
 autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+autocmd VimEnter * wincmd w
+"autocmd VimEnter * wincmd v
 
 " map FuzzyFinder
 noremap <leader>b :FufBuffer<cr>
