@@ -173,6 +173,7 @@ Plugin 'groenewege/vim-less'
 Plugin 'skammer/vim-css-color'      
 Plugin 'hail2u/vim-css3-syntax'     
 Plugin 'digitaltoad/vim-jade'       
+Plugin 'kien/ctrlp.vim'       
 
 " end plugin definition
 call vundle#end()            " required for vundle
