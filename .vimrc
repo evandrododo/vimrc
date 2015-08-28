@@ -19,8 +19,8 @@ filetype indent on
 set autoread         
 
 " encoding is utf 8
-set encoding=utf-8
-set fileencoding=utf-8
+set encoding=utf8
+set fileencoding=utf8
 
 " enable matchit plugin which ships with vim and greatly enhances '%'
 runtime macros/matchit.vim
@@ -79,7 +79,7 @@ if has("gui_running")
 end
 
 " set Adobe's Source Code Pro font as default
-set guifont=Source\ Code\ Pro
+" set guifont=Inconsolataz
 
 " allow Tab and Shift+Tab to
 " tab  selection in visual mode
@@ -165,6 +165,7 @@ Plugin 'vim-scripts/FuzzyFinder'
 Plugin 'itchyny/lightline.vim'      
 Plugin 'Lokaltog/vim-easymotion'    
 Plugin 'tpope/vim-surround'         
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 " -- Web Development
 Plugin 'Shutnik/jshint2.vim'        
 Plugin 'mattn/emmet-vim'            
@@ -175,6 +176,11 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'digitaltoad/vim-jade'       
 Plugin 'kien/ctrlp.vim'       
 
+" -- Git
+Plugin 'airblade/vim-gitgutter'
+
+Plugin 'ryanoasis/vim-devicons'
+
 " end plugin definition
 call vundle#end()            " required for vundle
 
@@ -184,9 +190,21 @@ let g:lightline = {
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
       \ },
+      \ 'component_function': {
+      \   'filetype': 'MyFiletype',
+      \   'fileformat': 'MyFileformat',
+      \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " start NERDTree on start-up and focus active window
 autocmd VimEnter * NERDTree
