@@ -46,12 +46,16 @@ set viminfo='100,f1
 " non-typed comments
 set lazyredraw
 
+" Ativa o fold 
+set foldcolumn=4
+
 " ---------------------- CUSTOMIZATION ----------------------
 "  The following are some extra mappings/configs to enhance my personal
 "  VIM experience
 
 " set , as mapleader
 let mapleader = ","
+
 
 " map <leader>q and <leader>w to buffer prev/next buffer
 noremap <leader>q :bp<CR>
@@ -166,19 +170,18 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'Lokaltog/vim-easymotion'    
 Plugin 'tpope/vim-surround'         
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'bling/vim-airline'
 " -- Web Development
 Plugin 'Shutnik/jshint2.vim'        
 Plugin 'mattn/emmet-vim'            
-Plugin 'kchmck/vim-coffee-script'   
 Plugin 'groenewege/vim-less'        
 Plugin 'skammer/vim-css-color'      
 Plugin 'hail2u/vim-css3-syntax'     
-Plugin 'digitaltoad/vim-jade'       
 Plugin 'kien/ctrlp.vim'       
 
 " -- Git
 Plugin 'airblade/vim-gitgutter'
-
+" Icones bonitinhos
 Plugin 'ryanoasis/vim-devicons'
 
 " end plugin definition
@@ -197,6 +200,21 @@ let g:lightline = {
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
+
+" -- Personaliza o airline
+let g:airline_theme='monokai'
+
+let g:airline_powerline_fonts = 1
+"Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
 
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
