@@ -61,6 +61,12 @@ let mapleader = ","
 noremap <leader>q :bp<CR>
 noremap <leader>w :bn<CR>
 
+function SwitchBuffer()
+    b#
+endfunction
+
+nmap <Tab> :call SwitchBuffer()<CR>
+
 " windows like clipboard
 " yank to and paste from the clipboard without prepending "* to commands
 let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed'
@@ -82,8 +88,8 @@ if has("gui_running")
     set guioptions-=L  " remove left-hand scroll bar
 end
 
-" set Adobe's Source Code Pro font as default
-" set guifont=Inconsolataz
+" Set font Inconsolata com Powerline e ícones  
+set guifont=Inconsolata\ for\ Powerline\ Plus\ Nerd\ File\ Types\ Plus\ Font\ Awesome\ Plus\ Octicons\ 12
 
 " allow Tab and Shift+Tab to
 " tab  selection in visual mode
@@ -184,6 +190,8 @@ Plugin 'airblade/vim-gitgutter'
 " Icones bonitinhos
 Plugin 'ryanoasis/vim-devicons'
 
+Plugin 'tpope/vim-fugitive'
+
 " end plugin definition
 call vundle#end()            " required for vundle
 
@@ -238,7 +246,7 @@ let g:user_emmet_leader_key = '<c-e>'
 
 " run JSHint when a file with .js extension is saved
 " this requires the jsHint2 plugin
-autocmd BufWritePost *.js silent :JSHint
+" autocmd BufWritePost *.js silent :JSHint
 
 " set the color theme to wombat256
 colorscheme monokai
