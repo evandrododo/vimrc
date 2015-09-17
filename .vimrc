@@ -47,11 +47,38 @@ set viminfo='100,f1
 set lazyredraw
 
 " Ativa o fold 
+set foldenable
 set foldcolumn=4
+set foldmethod=syntax
+set foldlevelstart=3
+nnoremap <space> za
+
+" toggle gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+" Move através da linha visivel
+nnoremap j gj
+nnoremap k gk
+
+" save session
+nnoremap <leader>s :mksession<CR>
+
+let javaScript_fold=1         " JavaScript
+let g:javascript_conceal_function   = "ƒ"
+let g:javascript_conceal_null       = "ø"
+let g:javascript_conceal_this       = "@"
+let g:javascript_conceal_return     = "⇚"
+let g:javascript_conceal_undefined  = "¿"
+let g:javascript_conceal_NaN        = "ℕ"
+let g:javascript_conceal_prototype  = "¶"
+let g:javascript_conceal_static     = "•"
+let g:javascript_conceal_super      = "Ω"
 
 " ---------------------- CUSTOMIZATION ----------------------
 "  The following are some extra mappings/configs to enhance my personal
 "  VIM experience
+
+colorscheme monokai
 
 " set , as mapleader
 let mapleader = ","
@@ -177,27 +204,31 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-surround'         
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'bling/vim-airline'
+Plugin 'moll/vim-bbye'       
+Plugin 'Raimondi/delimitMate'
+Plugin 'kien/ctrlp.vim'       
+Plugin 'Shougo/neocomplete.vim'
 " -- Web Development
+Plugin 'othree/html5.vim'
 Plugin 'Shutnik/jshint2.vim'        
 Plugin 'mattn/emmet-vim'            
 Plugin 'groenewege/vim-less'        
 Plugin 'skammer/vim-css-color'      
 Plugin 'hail2u/vim-css3-syntax'     
-Plugin 'kien/ctrlp.vim'       
+Plugin 'pangloss/vim-javascript'
+Plugin 'shawncplus/phpcomplete.vim'
 
 " -- Git
+Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 " Icones bonitinhos
 Plugin 'ryanoasis/vim-devicons'
-
-Plugin 'tpope/vim-fugitive'
 
 " end plugin definition
 call vundle#end()            " required for vundle
 
 " Personaliza a lightline
 let g:lightline = {
- \ 'colorscheme': 'wombat',
       \ 'component': {
       \   'readonly': '%{&readonly?"":""}',
       \ },
@@ -210,7 +241,7 @@ let g:lightline = {
       \ }
 
 " -- Personaliza o airline
-let g:airline_theme='monokai'
+" let g:airline_theme='molokai'
 
 let g:airline_powerline_fonts = 1
 "Enable the list of buffers
@@ -223,6 +254,7 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 
+noremap <C-Q> :Bdelete<cr>
 
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -248,5 +280,58 @@ let g:user_emmet_leader_key = '<c-e>'
 " this requires the jsHint2 plugin
 " autocmd BufWritePost *.js silent :JSHint
 
-" set the color theme to wombat256
-colorscheme monokai
+
+
+" Seção para neocomplete
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
