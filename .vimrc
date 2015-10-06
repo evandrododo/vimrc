@@ -33,6 +33,9 @@ set backspace=indent,eol,start
 " background
 set hidden
 
+" set case insensitive por padrão
+set smartcase
+
 " set unix line endings
 set fileformat=unix
 " when reading files try unix line endings then dos, also use unix for new
@@ -217,6 +220,7 @@ Plugin 'skammer/vim-css-color'
 Plugin 'hail2u/vim-css3-syntax'     
 Plugin 'pangloss/vim-javascript'
 Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'captbaritone/better-indent-support-for-php-with-html'
 
 " -- Git
 Plugin 'tpope/vim-fugitive'
