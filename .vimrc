@@ -1,4 +1,5 @@
 " ---------------------- USABILITY CONFIGURATION ----------------------
+"
 "  Basic and pretty much needed settings to provide a solid base for
 "  source code editting
 
@@ -7,8 +8,52 @@ set nocompatible
 
 " turn on syntax highlighting
 syntax on
+colorscheme dracula
 " and show line numbers
 set number
+
+" ---------------------- PLUGIN CONFIGURATION ----------------------
+" initiate vim-plug
+call plug#begin('~/.vim/bundle')
+" let Vundle manage Vundle, required
+Plug 'gmarik/Vundle.vim'
+
+" start plugin defintion
+Plug 'scrooloose/nerdtree'
+Plug 'vim-scripts/L9'
+Plug 'vim-scripts/FuzzyFinder'
+Plug 'itchyny/lightline.vim'      
+Plug 'Lokaltog/vim-easymotion'    
+Plug 'tpope/vim-surround'         
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'bling/vim-airline'
+Plug 'moll/vim-bbye'       
+Plug 'Raimondi/delimitMate'
+Plug 'kien/ctrlp.vim'       
+Plug 'Shougo/deoplete.nvim'
+" -- Web Development
+Plug 'othree/html5.vim'
+Plug 'Shutnik/jshint2.vim'        
+Plug 'mattn/emmet-vim'            
+Plug 'groenewege/vim-less'        
+Plug 'skammer/vim-css-color'      
+Plug 'hail2u/vim-css3-syntax'     
+Plug 'pangloss/vim-javascript'
+Plug 'shawncplus/phpcomplete.vim'
+Plug 'captbaritone/better-indent-support-for-php-with-html'
+
+" -- Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+" -- Eye Candy 
+Plug 'ryanoasis/vim-devicons'
+Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+
+" end plugin definition
+call plug#end() 
+
+let $TERM = "xterm-256color"
+set t_Co=256
 
 " make vim try to detect file types and load plugins for them
 filetype on
@@ -19,7 +64,6 @@ filetype indent on
 set autoread         
 
 " encoding is utf 8
-set encoding=utf8
 set fileencoding=utf8
 
 " enable matchit plugin which ships with vim and greatly enhances '%'
@@ -27,7 +71,8 @@ runtime macros/matchit.vim
 
 " by default, in insert mode backspace won't delete over line breaks, or 
 " automatically-inserted indentation, let's change that
-set backspace=indent,eol,start
+" NeoVim adiciona automaticamente
+" set backspace=indent,eol,start
 
 " dont't unload buffers when they are abandoned, instead stay in the
 " background
@@ -81,8 +126,6 @@ let g:javascript_conceal_super      = "Ω"
 "  The following are some extra mappings/configs to enhance my personal
 "  VIM experience
 
-colorscheme monokai
-
 " set , as mapleader
 let mapleader = ","
 
@@ -97,14 +140,13 @@ endfunction
 
 nmap <Tab> :call SwitchBuffer()<CR>
 
-" windows like clipboard
-" yank to and paste from the clipboard without prepending "* to commands
-let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed'
 " map c-x and c-v to work as they do in windows, only in insert mode
 vm <c-x> "+x
 vm <c-c> "+y
 cno <c-v> <c-r>+
 exe 'ino <script> <C-V>' paste#paste_cmd['i']
+
+set clipboard=unnamedplus
 
 " save with ctrl+s
 nmap <c-s> :w<CR>
@@ -178,58 +220,6 @@ autocmd BufNewFile,BufRead *.jade setlocal ft=jade
 " just map it to <f9>
 set pastetoggle=<f9>
 
-" if windows...
-if has('win32')
-    " start maximized
-    autocmd GUIEnter * simalt ~x
-    " also use .vim instead of vimfiles, make sure to run the following command
-    " once this was copied to /Users/<user>/.vim
-    "  mklink %homepath%/.vimrc %homepath%/.vim/.vimrc
-    let &runtimepath.=',$HOME/.vim'
-endif
-
-" select all mapping
-"noremap <leader>a ggVG
-
-" ---------------------- PLUGIN CONFIGURATION ----------------------
-" initiate Vundle
-let &runtimepath.=',$HOME/.vim/bundle/Vundle.vim'
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" start plugin defintion
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-scripts/L9'
-Plugin 'vim-scripts/FuzzyFinder'
-Plugin 'itchyny/lightline.vim'      
-Plugin 'Lokaltog/vim-easymotion'    
-Plugin 'tpope/vim-surround'         
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'bling/vim-airline'
-Plugin 'moll/vim-bbye'       
-Plugin 'Raimondi/delimitMate'
-Plugin 'kien/ctrlp.vim'       
-Plugin 'Shougo/neocomplete.vim'
-" -- Web Development
-Plugin 'othree/html5.vim'
-Plugin 'Shutnik/jshint2.vim'        
-Plugin 'mattn/emmet-vim'            
-Plugin 'groenewege/vim-less'        
-Plugin 'skammer/vim-css-color'      
-Plugin 'hail2u/vim-css3-syntax'     
-Plugin 'pangloss/vim-javascript'
-Plugin 'shawncplus/phpcomplete.vim'
-Plugin 'captbaritone/better-indent-support-for-php-with-html'
-
-" -- Git
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-" Icones bonitinhos
-Plugin 'ryanoasis/vim-devicons'
-
-" end plugin definition
-call vundle#end()            " required for vundle
 
 " Personaliza a lightline
 let g:lightline = {
@@ -245,7 +235,7 @@ let g:lightline = {
       \ }
 
 " -- Personaliza o airline
-" let g:airline_theme='molokai'
+let g:airline_theme='bubblegum'
 
 let g:airline_powerline_fonts = 1
 "Enable the list of buffers
@@ -285,57 +275,56 @@ let g:user_emmet_leader_key = '<c-e>'
 " autocmd BufWritePost *.js silent :JSHint
 
 
-
-" Seção para neocomplete
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" " Seção para neocomplete
+" "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" " Disable AutoComplPop.
+" let g:acp_enableAtStartup = 0
+" " Use neocomplete.
+" let g:neocomplete#enable_at_startup = 1
+" " Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
+" " Set minimum syntax keyword length.
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" 
+" " Define dictionary.
+" let g:neocomplete#sources#dictionary#dictionaries = {
+"     \ 'default' : '',
+"     \ 'vimshell' : $HOME.'/.vimshell_hist',
+"     \ 'scheme' : $HOME.'/.gosh_completions'
+"         \ }
+" 
+" " Define keyword.
+" if !exists('g:neocomplete#keyword_patterns')
+"     let g:neocomplete#keyword_patterns = {}
+" endif
+" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" 
+" " Plugin key-mappings.
+" inoremap <expr><C-g>     neocomplete#undo_completion()
+" inoremap <expr><C-l>     neocomplete#complete_common_string()
+" 
+" 
+" " <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" " <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-y>  neocomplete#close_popup()
+" inoremap <expr><C-e>  neocomplete#cancel_popup()
+" " Close popup by <Space>
+" " Enable omni completion.
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" 
+" " Enable heavy omni completion.
+" if !exists('g:neocomplete#sources#omni#input_patterns')
+"   let g:neocomplete#sources#omni#input_patterns = {}
+" endif
+" 
+" " For perlomni.vim setting.
+" " https://github.com/c9s/perlomni.vim
+" let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'

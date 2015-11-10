@@ -1,0 +1,17 @@
+_HiStOrY_V2_
+App\134User::all()->toArray();
+bye
+exit
+App\134User::all()->toArray();
+\134q
+App\134User::all()->toArray();
+exit
+App\134User::all()->toArray();
+exit
+App\134User::all()->toArray();
+exit
+App\134User::all()->toArray();
+exit
+App\134User::first()
+App\134User::first()->delete();
+\134q
