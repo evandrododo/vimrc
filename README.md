@@ -1,7 +1,7 @@
 ```
 git clone https://github.com/evandrododo/vimrc.git
 cd vimrc
-cp .config ~/.config
+cp -r nvim ~/.config/nvim
 cp .vimrc ~/.vimrc
 
 ```
